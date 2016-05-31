@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title>js match用法</title>
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			
+			body {
+				width: 100%;
+				height: 100%;
+			}
+			
+			.red {
+				background: red;
+			}
+			
+			.blue {
+				background: blue;
+			}
+			
+			.yellowGreen {
+				background: yellowgreen;
+			}
+			
+			div {
+				width: 100%;
+				height: 100%;
+				text-align: center;
+				position: relative;
+			}
+			
+			p {
+				width: 7%;
+				color: #fff;
+				font-size: 20px;
+				cursor: pointer;
+				border: 2px solid #fff;
+				margin: 0 auto;
+				line-height: 200%;
+				position: absolute;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="red">
+			<p onclick="change()">风格</p>
+		</div>
+		<script type="text/javascript">
+		    var element = document.getElementsByTagName("div")[0];
+			window.onload = function() {
+				var innerWidth = window.innerWidth;
+				var innerHeight = window.innerHeight;
+				var p = document.getElementsByTagName("p")[0];
+				element.style.height = innerHeight + "px";
+				p.style.left = (innerWidth - p.offsetWidth) / 2 + "px";
+				p.style.top = (innerHeight - p.offsetHeight) / 2 + "px";
+			}
+			window.onresize=function(){
+				location.reload(true);
+			}
+			
+			/*通过匹配classname名称来改变夜色*/
+			console.log("match除了可以用来匹配字符串还可以匹配正则,如果找到匹配的元素，结果存放在数组里，否则返回null");
+			console.log(element.className.match('re')+" "+element.className.match('bu'));
+			function change() {
+				if (element.className.match('red')) {
+					element.className = "blue";
+				} else if (element.className.match('blue')) {
+					element.className = "yellowGreen";
+				} else {
+					element.className = "red";
+				}
+			}
+		</script>
+	</body>
+
+</html>
