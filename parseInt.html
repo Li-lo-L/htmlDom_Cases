@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>购物车加减</title>
+		<style type="text/css">
+		    table{width:60%;margin:10px auto;}
+		    table tr{width:100%;}
+		    table tr td,table tr th {height:30px;text-align: center;}
+			table tr td input.click{width:16px;text-align: center;cursor: pointer;}
+			table tr td input.canNumber{width:60px;text-align: center;}
+			table tr td.sum span{display: inline-block;padding:4px 12px;background: #9ACD32;color:#fff;cursor: pointer;}
+		</style>
+	</head>
+	<body>
+		<table border="1" style="border-collapse: collapse;" >
+			<tr>
+				<th>客官</th>
+				<th>单价</th>
+				<th>数量</th>
+				<th>总价</th>
+			</tr>
+			<tr class="listen">
+				<td>驴肉火烧来一个</td>
+				<td>12.56</td>
+				<td>
+					<input class="click sub" value="-" readonly/>
+					<input type="text" class="canNumber" value="0" maxlength="2"/>
+					<input class="click add" value="+" readonly/>
+				</td>
+				<td><em class="account">0.00</em></td>
+			</tr>
+			<tr class="listen">
+				<td>老鸭粉丝汤一碗</td>
+				<td>8</td>
+				<td>
+					<input class="click sub" value="-" readonly/>
+					<input type="text" class="canNumber" value="0" maxlength="2"/>
+					<input class="click add" value="+" readonly/>
+				</td>
+				<td><em class="account">0.00</em></td>
+			</tr>
+			<tr class="listen">
+				<td>煎饼果子多放蛋</td>
+				<td>3.8</td>
+				<td>
+					<input class="click sub" value="-" readonly/>
+					<input type="text" class="canNumber" value="0" maxlength="2"/>
+					<input class="click add" value="+" readonly/>
+				</td>
+				<td><em class="account">0.00</em></td>
+			</tr>
+			<tr>
+				<td colspan="2">总价：<span class="allPrice">0.00</span></td>
+				<td colspan="2" class="sum"><span>结账</span></td>
+			</tr>
+		</table>
+		<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			$(function(){
+				
+				/*加*/
+				$("input.add").click(function(){
+				    var num=$(this).parent().find("input.canNumber");
+				    num.val(parseInt(num.val())+1);
+				    if(parseInt(num.val())>99){
+				    	num.val(99)
+				    }
+				    every(this);
+				    allPrice();
+				})
+				
+				/*减*/
+				$("input.sub").click(function(){
+				    var num=$(this).parent().find("input.canNumber");
+				    num.val(parseInt(num.val())-1);
+				    if(parseInt(num.val())<=0){
+				    	num.val(0)
+				    }
+				    every(this);
+				    allPrice();
+				})
+				
+				/*输入框实时改变事件     不可复制粘贴剪切事件  */
+				$(".canNumber").bind("input propertychange",function(){
+					var num=$(this).parent().find("input.canNumber");
+					if(isNaN(num.val())||num.val()<0){
+						num.val("")
+					}
+					every(this);
+					allPrice();
+				}).bind("copy cut paste",function(e){
+	               return false;
+	            }).blur(function(){
+	            	var num=$(this).parent().find("input.canNumber");
+	            	if(num.val()==""){
+	            		num.val(0)	            		
+	            	}
+	            });
+	            
+	            /*总价*/
+				function allPrice(){
+					var sum=0;
+					$("table tr.listen").each(function(){
+						var number=$(this).find("input.canNumber");
+						var price=$(this).children("td");
+						var str=String(number.val());
+						if(str.indexOf(0)==0&&str.length>1){
+							number.val(parseInt(str.substring(1)))
+						}
+						sum += parseInt(number.val())*parseFloat($(price[1]).text());
+					})
+					$("span.allPrice ").html(sum.toFixed(2))
+				} 
+				
+				/*单价*/
+				function every(obj){
+					var num=$(obj).parent().find("input.canNumber");
+					if(num.val()==""){
+	            		num.val(0)	            		
+	            	}
+					var str=String(num.val());
+					if(str.indexOf(0)==0&&str.length>1){
+						num.val(parseInt(str.substring(1)))
+					}
+					var price=$(obj).parent().prev().text();
+					var account=$(obj).parent().next().find("em");
+					account.html((parseInt(num.val())*parseFloat(price)).toFixed(2));
+					if(num.val()==""){
+						account.html(0)
+					}
+				}
+			})
+		</script>
+	</body>
+
+</html>
