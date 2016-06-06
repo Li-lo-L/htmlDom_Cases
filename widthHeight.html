@@ -1,47 +1,98 @@
-<a></a>
 <!DOCTYPE html>
 <html>
-
 	<head>
 		<meta charset="UTF-8">
 		<title>浏览器宽高，页面宽高，屏幕宽高（用法兼容测试）</title>
+		<link rel="stylesheet" type="text/css" href="css/public.css" />
 		<style>
-			* {
-				margin: 0;
-				padding: 0;
-			}
-			
+		    body{
+		    	border:3px solid #000000
+		    }
 			#div2 {
-				width:100%;
-				height: 400px;
 				background: #0f0;
-				margin-left: 10px;
+				border: 10px double #9ACD32;
+				margin: 20px;
 				position: relative;
 			}
 			
-			#div3 {
-				width: 80%;
-				height:150px;
-				background: #00f;
-				margin-left: 10px;
-				margin:0 auto;
-			}
-			#div4{
-				text-align: center;
+			#div4 {
+				text-align: left;
+				width: 60%;
+				overflow-y: auto;
+				background: yellow;
+				margin: 20px auto;
+				padding: 10px 5px;
+				border: 10px double #000;
+				word-break: break-all;
 			}
 		</style>
 	</head>
 	<body>
 		<div id='div2'>
-				<div id='div3'></div>
-				<div id="div4"><iframe src="http://www.baidu.com" width="500px" height="480px" framespacing="0"></iframe>
+			<div id="div4">
+				<span></span><br /><br />
+				<p>
+					offsetLeft/offsetTop/offsetHeight/offsetWidth offsetLeft和offsetTop总是找到离其最近的已经定位的元素定位，如果没有，根据body定位，然后获取其left,top值,如果元素的display为none，或者元素的position为fixed,元素的offsetParent为null offsetLeft和offsetTop获取匹配元素在当前视口的相对偏移
+					<br /><br /> 
+					offsetParent 返回一个元素离其最近的已经定位的元素
+					<br/><br /> 
+					window.outerWidth/window.outerHeight 浏览器窗口的大小，包括顶部菜单栏、滚动条；
+					<br /><br /> 
+					window.innerWidth/window.innerHeight 浏览器窗口的大小，不包括顶部菜单栏、滚动条；
+					<br /><br />
+					document.documentElement.clientwidth  返回整个文档的可见宽度（不包含边框），clientwidth = offsetWidth - borderWidth;
+					如果不给document.documentElement来设置边框，所以这里的clientwidth 与 offsetWidth一致
+					<br/><br/>
+					document.body.scrollWidth/document.body.scrollHeight  如果文档宽高小于浏览器宽高，scrollWidth/scrollHeight取浏览器可见区域宽高；
+					如果文档宽高大于浏览器宽高，scrollWidth/scrollHeight取文档的宽度/高度；
+					<br /><br />
+					<h4>
+						clientWidth = width + padding<br/>
+						offsetWidth = width + padding + border<br />
+						scrollWidth = width + padding (是对象的实际内容的宽，不包边线宽度,不随窗口大小改变；但在chrome下包含边框；)
+						如果没有边线，两者相等；
+					</h4>					
+				</p>
+			</div>
 		</div>
 		<script type="text/javascript">
-			alert(window.top.document.compatMode);
+			/*判断浏览器模式，如果是CSS1Compat代表标准模式,BackCompat代表怪异模式*/
+			console.log(window.top.document.compatMode +
+				"\n判断浏览器模式，如果是CSS1Compat代表标准模式,BackCompat代表怪异模式");
+			console.log("");
+
+			/*offsetTop和offsetLeft用来*/
 			var four = document.getElementById("div4");
-			alert(four.offsetLeft + " " + four.offsetTop);
-			alert(four.offsetParent);
-			console.log("offsetLeft和offsetTop总是找到离其最近的已经定位的元素定位，如果没有，根据body定位，然后获取其left,top值");
+			var span = document.getElementById("div4").getElementsByTagName("span")[0];
+
+			/*获取文件的服务器域名*/
+			span.innerHTML = document.domain;
+
+			four.offsetParent.style.backgroundColor = "rgba(155,155,155,.1)";
+			console.log(four.offsetParent.id);
+			console.log("获取元素的offsetParent的id，并改变其背景色");
+			console.log("");
+
+			console.log(four.offsetLeft + " " + four.offsetTop + " " + four.offsetWidth + " " + four.offsetHeight);
+			var html = "offsetLeft和offsetTop总是找到离其最近的已经定位的元素定位，如果没有，根据body定位，" +
+				"然后获取其left,top值,如果元素的display为none，或者元素的position为fixed,元素的offsetParent为null" +
+				"offsetWidth/offsetHeight包括边框、内间距、滚动条的距离";
+			console.log(html);
+			console.log("");
+
+			/*body的offsetTop...*/
+			console.log("offset:"+""+document.body.offsetWidth + " " + document.body.offsetHeight);
+			console.log("client:"+""+document.body.clientWidth + " " + document.body.clientHeight);
+			console.log("scroll:"+""+document.body.scrollWidth + " " + document.body.scrollHeight);
+			console.log("");
+
+			console.log(window.outerWidth + " " + window.outerHeight);
+			console.log("浏览器窗口的大小，包括顶部菜单栏、滚动条；");
+			console.log("");
+
+			console.log(window.innerWidth + " " + window.innerHeight);
+			console.log("浏览器窗口的大小，不包括顶部菜单栏、滚动条；");
+			console.log("");
 		</script>
 	</body>
 
