@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>Canvas基本用法</title>
+		<link rel="stylesheet" type="text/css" href="css/public.css" />
+		<style type="text/css">
+			body {
+				width: 100%;
+			}
+			
+			.border {
+				border: 12px double #000000;
+				text-align: center;
+				width: 98%;
+				height: auto;
+				margin: 0 auto;
+			}
+			
+			#rect {
+				margin: 30px auto;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="border">
+			<canvas id="rect" width="200" height="200"></canvas>
+			<canvas id="gradient" width="200" height="200"></canvas>
+			<canvas id="radial" width="200" height="200"></canvas>
+			<canvas id="write" width="200" height="200"></canvas>
+			<canvas id="twoLinear" width="200" height="200"></canvas>
+			<canvas id="arc" width="200" height="200"></canvas>
+			<canvas id="img" width="200" height="200"></canvas>
+		</div>
+		<p>
+			rect n.矩形 <br/> stroke v.笔画 <br/> radial n.射线；adj.放射状的 <br/> arc n.弧度，弧形物；adj.圆弧的
+
+		</p>
+		<script type="text/javascript">
+			var rect = document.getElementById("rect");
+			var gradient = document.getElementById("gradient");
+			var radial = document.getElementById("radial");
+			var write = document.getElementById("write");
+			var twoLinear = document.getElementById("twoLinear");
+			var img = document.getElementById("img");
+			var arc = document.getElementById("arc");
+			var ctx = rect.getContext("2d");
+			var gra = gradient.getContext("2d");
+			var rad = radial.getContext("2d");
+			var writ = write.getContext("2d");
+			var two = twoLinear.getContext("2d");
+			var ar = arc.getContext("2d");
+			var image = img.getContext("2d");
+			//指定了而为绘图，返回一个环境对象，该对象导出一个二维API;目前只能做到2d，未来有可能实现3d;
+
+			/*普通矩形*/
+			ctx.strokeStyle = "red";
+			//设置颜色
+			ctx.strokeRect(0, 0, 100, 100);
+			//strokeRect() 方法绘制矩形（无填充）。笔触的默认颜色是黑色。
+			//strokeRect(x, y, width, height)；矩形左上角的x坐标，矩形左上角的y坐标，矩形的宽度,矩形的高度；
+
+			/*线性渐变矩形*/
+			var gradi = gra.createLinearGradient(0, 0, 100, 100);
+			gradi.addColorStop("0", "yellow");
+			gradi.addColorStop("0.5", "green");
+			gradi.addColorStop("1", "#01ff34");
+			gra.strokeStyle = gradi;
+			gra.lineWidth = 5;
+			gra.strokeRect(0, 0, 100, 100);
+
+			/*辐射渐变*/
+			var radi = rad.createRadialGradient(100, 100, 3, 30, 130, 280);
+			radi.addColorStop("0", "yellow");
+			radi.addColorStop("1", "blue");
+			rad.fillStyle = radi;
+			rad.fillRect(0, 0, 200, 200);
+
+			/*渐变文字*/
+			var wri = writ.createLinearGradient(0, 0, write.width, 0);
+			wri.addColorStop("0", "purple");
+			wri.addColorStop("0.5", "#000");
+			wri.addColorStop("1", "#f00");
+			writ.font = "30px Microsoft Yahei";
+			writ.strokeStyle = wri;
+			writ.strokeText("Hello World!", 0, 30);
+
+			/*绘制线条*/
+			//one hang
+			two.beginPath();
+			two.moveTo(0, 15);
+			two.lineTo(30, 15);
+			two.lineWidth = "3";
+			two.strokeStyle = "deepskyblue"; //路径颜色
+			two.stroke(); //进行绘制
+			//one shu
+			two.beginPath();
+			two.moveTo(15, 0);
+			two.lineTo(15, 40);
+			two.lineWidth = "3";
+			two.strokeStyle = "deepskyblue"; //路径颜色
+			two.stroke(); //进行绘制
+			//one bie
+			two.beginPath();
+			two.moveTo(15, 15);
+			two.lineTo(0, 40);
+			two.lineWidth = "3";
+			two.strokeStyle = "deepskyblue"; //路径颜色
+			two.stroke(); //进行绘制
+			//one na
+			two.beginPath();
+			two.moveTo(15, 15);
+			two.lineTo(30, 40);
+			two.lineWidth = "3";
+			two.strokeStyle = "deepskyblue"; //路径颜色
+			two.stroke(); //进行绘制
+			//one hang
+			two.beginPath();
+			two.moveTo(32, 0);
+			two.lineTo(55, 0);
+			two.lineWidth = "3";
+			two.strokeStyle = "deepskyblue"; //路径颜色
+			two.stroke(); //进行绘制
+			//one pie
+			two.beginPath();
+			two.moveTo(55, 0);
+			two.lineTo(32, 15);
+			two.lineWidth = "3";
+			two.strokeStyle = "deepskyblue"; //路径颜色
+			two.stroke(); //进行绘制
+			//one hang
+			two.beginPath();
+			two.moveTo(32, 15);
+			two.lineTo(55, 15);
+			two.lineWidth = "3";
+			two.strokeStyle = "deepskyblue"; //路径颜色
+			two.stroke(); //进行绘制
+			//one shu
+			two.beginPath();
+			two.moveTo(55, 15);
+			two.lineTo(55, 40);
+			two.lineWidth = "3";
+			two.strokeStyle = "deepskyblue"; //路径颜色
+			two.stroke(); //进行绘制
+			//one gou
+			two.beginPath();
+			two.moveTo(55, 40);
+			two.lineTo(48, 36);
+			two.lineWidth = "3";
+			two.strokeStyle = "deepskyblue"; //路径颜色
+			two.stroke(); //进行绘制
+			//one pie
+			two.beginPath();
+			two.moveTo(43, 15);
+			two.lineTo(34, 32);
+			two.lineWidth = "3";
+			two.strokeStyle = "deepskyblue"; //路径颜色
+			two.stroke(); //进行绘制
+			//one pie
+			two.beginPath();
+			two.moveTo(50, 15);
+			two.lineTo(41, 38);
+			two.lineWidth = "3";
+			two.strokeStyle = "deepskyblue"; //路径颜色
+			two.stroke(); //进行绘制
+
+			/*绘制圆*/
+			ar.beginPath();
+			ar.arc(100, 100, 50, 0, 1.5 * Math.PI, false);
+			ar.strokeStyle = "greenyellow";
+			ar.lineWidth = "10";
+			ar.stroke();
+
+			/*放图在画布里*/
+			var picture = new Image();
+			picture.src = "img/1.jpg";
+			picture.onload = function() {
+				image.drawImage(picture, 0, 0, 200, 180);
+			}
+		</script>
+	</body>
+
+</html>
