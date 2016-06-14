@@ -1,0 +1,10 @@
+#canvas{display: block;margin:0 auto;}
+.controller{margin:8px auto;}
+#clear span{float: right;display: inline-block;height:30px;line-height:30px;padding:0 10px;background:#ccc;cursor: pointer;color:#fff;}
+#clear span:hover{background:#999;}
+.controller div.color{float: left;margin-right:8px;width:30px;height:30px;cursor: pointer;border:2px solid #fff;}
+.controller div.color.green{background: green;}
+.controller div.color.orange{background:orange;}
+.controller div.color.purple{background: purple;}
+.controller div.color.yellow{background:yellow;}
+.controller div.color.pink{background: pink;}

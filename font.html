@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<!--width=[px/device-width]屏幕宽度使用当前设备的宽度；initical-scale初始伸缩量，1.0代表没有缩放；minimum-scale，maximum-scale缩放的最小尺寸，最大尺寸；user-scalable是否可缩放；-->
+		<title>使用canvas写一个字</title>
+		<script src="js/jquery-1.11.3.min.js" type="text/javascript" charset="utf-8"></script>
+		<link rel="stylesheet" type="text/css" href="css/font.css" />
+	</head>
+
+	<body>
+		<canvas id="canvas">
+			浏览器不支持canvas;
+		</canvas>
+		<!--
+			<canvas id="dash">
+			取消注释，绘制虚线
+		</canvas>
+		-->
+		<div class="controller">
+			<div class="color green"></div>
+			<div class="color pink"></div>
+			<div class="color purple"></div>
+			<div class="color yellow"></div>			
+			<div class="color orange"></div>
+			<div id="clear">
+				<span>清除</span>
+			</div>
+		</div>
+        
+		<script src="js/write.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>
